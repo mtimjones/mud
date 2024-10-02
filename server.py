@@ -1,9 +1,14 @@
 import socket
 import threading
+from player import Player
 
 def handle_client(client_socket, client_address):
 
     print(f"Accepted connection from {client_address}")
+
+    player = Player(client_socket)
+
+    client_socket.send("\n\rWelcome to CMud.  Type any word to continue\n\n\r".encode())
 
     while True:
 
@@ -13,19 +18,19 @@ def handle_client(client_socket, client_address):
             if not data:
                 break
 
-            message = data.decode().rstrip()
+            message = data.decode().strip()
+
             if message != "":
                 print(f"Received from {client_address}: {message}")
-
-                # Process the message and send a response
-                response = f"Echo: {message}"
-                client_socket.send(response.encode())
+                player.interact(message);
 
         except ConnectionResetError:
             break
 
+    # Client socket closed.
     client_socket.close()
     print(f"Connection closed with {client_address}")
+
 
 def start_server(client):
 
@@ -45,6 +50,7 @@ def start_server(client):
         # Create a new thread to handle the client
         thread = threading.Thread(target=client, args=(client_socket, client_address))
         thread.start()
+
 
 if __name__ == "__main__":
 
