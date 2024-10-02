@@ -1,3 +1,5 @@
+import json
+
 class World:
 
     _instance = None
@@ -10,4 +12,14 @@ class World:
 
         return cls._instance
 
+    def load(self):
+
+        with open('world.json') as json_data:
+            self.env = json.load(json_data)
+            json_data.close()
+            print(self.env)
+
+    def get(self):
+
+        return self.env
 

@@ -1,6 +1,7 @@
 import socket
 import threading
 from player import Player
+from world import World
 
 def handle_client(client_socket, client_address):
 
@@ -42,6 +43,9 @@ def start_server(client):
     server_socket.listen(5)
 
     print(f"Server listening on {host}:{port}")
+
+    world = World()
+    world.load()
 
     while True:
 

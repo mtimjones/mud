@@ -1,0 +1,21 @@
+{
+	"entities": [
+
+		{ "username": "user",
+		  "password": "pass",
+		  "location": "entry",
+		  "stats": {
+			  "hp": 100,
+			  "level": 1,
+			  "xp": 0,
+			  "factor": 1.1
+		  }
+		}
+
+	],
+
+	"rooms": [
+
+		{ "name": "entry", "description": "An empty room with no exits." }
+	]
+}
