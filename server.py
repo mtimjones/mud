@@ -9,7 +9,7 @@ def handle_client(client_socket, client_address):
 
     player = Player(client_socket)
 
-    client_socket.send("\n\rWelcome to CMud.  Type any word to continue\n\n\r".encode())
+    client_socket.send("\n\rWelcome to CMud. Set terminal to 'raw'. Type any word to continue\n\n\r".encode())
 
     while True:
 
@@ -46,6 +46,7 @@ def start_server(client):
 
     world = World()
     world.load()
+    print("World loaded.")
 
     while True:
 
