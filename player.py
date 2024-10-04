@@ -67,8 +67,8 @@ class Player:
                 self.state = pstate.New_Character_Creation
             else:
                 found = False
-                for users in self.json['entities']:
-                    if users['username'] == message:
+                for user in self.json['entities']:
+                    if user['username'] == message:
                         found = True
                         self.username = message
                         self.send_response("\n\rEnter your password: ")
@@ -81,12 +81,14 @@ class Player:
 
         elif self.state == pstate.Get_Character_Password:
             found = False
-            for users in self.json['entities']:
-                if users['password'] == message:
+            for user in self.json['entities']:
+                if user['password'] == message:
                     found = True
+                    self.entity = user
                     self.password = message
-                    self.send_response("\n\rYou are now logged in.  Type 'help' for help.\n\r")
+                    self.send_response("\n\rYou are now logged in.  Type 'help' for help.\n\r\n\r")
                     self.state = pstate.Logged_In
+                    self.player_look()
                     self.play("")
 
             if not found:
@@ -111,5 +113,14 @@ class Player:
     def play(self, message):
 
         self.send_response("\n\rReached play\n\r")
+
+
+
+    def player_look(self):
+
+        for rooms in self.json['rooms']:
+            if self.entity['location'] == rooms['name']:
+                self.send_response(f"{rooms['description']}\n\r\n\r");
+
 
 
