@@ -41,9 +41,6 @@ class Player:
 
     def route(self, message):
 
-        print(f"State {self.state} ")
-        print(f"Type {type(self.state)}")
-
         if self.state <= pstate.xxLogin:
             self.login(message)
 
@@ -117,12 +114,14 @@ class Player:
 
     def player_look(self):
 
-        for rooms in self.json['rooms']:
-            if self.entity['location'] == rooms['name']:
-                self.send_response(f"{rooms['description']}\n\r\n\r");
+        for room in self.json['rooms']:
+            if self.entity['location'] == room['name']:
+                self.send_response(f"{room['description']}\n\r\n\r");
+
+                self.send_response("Exits are ")
+                for key in room['exits']:
+                    self.send_response(f"{key} ")
+                self.send_response("\n\r")
 
         # Add iteration of items
         # Add iteration of entities to see who is here.
-
-
-

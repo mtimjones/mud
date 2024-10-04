@@ -4,17 +4,35 @@
 		{ "username": "user",
 		  "password": "pass",
 		  "location": "entry",
+		  "loggedin": false,
 		  "stats": {
 			  "hp": 100,
 			  "level": 1,
 			  "xp": 0,
 			  "factor": 1.1
-		  }
+		  },
+		  "items": []
 		}
 
 	],
 
 	"rooms": [
-		{ "name": "entry", "description": "An empty room with no exits." }
+		{ "name": "entry", 
+		  "description": "A bright room with a high ceiling.",
+		  "items": [
+			  {"name": "club", "type": "weapon", "damage": 10}, 
+			  {"name": "healing potion", "type": "potion", "hp": 10}
+		  ],
+		  "exits": [
+			  { "east": "hallway" }
+		  ]
+		},
+	    { "name": "hallway",
+		  "description": "A long corridor.",
+		  "items": [],
+		  "exits": [
+			  { "west": "entry"}
+		  ]
+		}
 	]
 }
