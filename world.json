@@ -15,7 +15,6 @@
 	],
 
 	"rooms": [
-
 		{ "name": "entry", "description": "An empty room with no exits." }
 	]
 }

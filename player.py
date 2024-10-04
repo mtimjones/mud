@@ -115,12 +115,14 @@ class Player:
         self.send_response("\n\rReached play\n\r")
 
 
-
     def player_look(self):
 
         for rooms in self.json['rooms']:
             if self.entity['location'] == rooms['name']:
                 self.send_response(f"{rooms['description']}\n\r\n\r");
+
+        # Add iteration of items
+        # Add iteration of entities to see who is here.
 
 
 
