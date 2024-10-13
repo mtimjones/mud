@@ -85,8 +85,8 @@ class Player:
                     self.password = message
                     self.send_response("\n\rYou are now logged in.  Type 'help' for help.\n\r\n\r")
                     self.state = pstate.Logged_In
+                    self.entity['loggedin'] = True
                     self.player_look()
-                    self.play("")
 
             if not found:
                 response = f"\n\rPassword failed.\n\rEnter your username or 'new' to create a new character:"
@@ -109,19 +109,71 @@ class Player:
 
     def play(self, message):
 
-        self.send_response("\n\rReached play\n\r")
+        if message == 'look':
+            self.player_look()
+        elif message == 'n' or message == 'north':
+            self.player_move('north')
+        elif message == 's' or message == 'south':
+            self.player_move('south')
+        elif message == 'w' or message == 'west':
+            self.player_move('west')
+        elif message == 'e' or message == 'east':
+            self.player_move('east')
+        elif message == 'i' or message == 'inventory':
+            self.player_inventory()
+        elif message == 'help':
+            self.player_help()
+        else:
+            self.send_response(f"Command {message} not understood.")
+            self.player_help()
 
 
     def player_look(self):
 
         for room in self.json['rooms']:
             if self.entity['location'] == room['name']:
+                self.world.take()
                 self.send_response(f"{room['description']}\n\r\n\r");
 
-                self.send_response("Exits are ")
+                self.send_response("   Exits are ")
                 for key in room['exits']:
                     self.send_response(f"{key} ")
                 self.send_response("\n\r")
 
-        # Add iteration of items
-        # Add iteration of entities to see who is here.
+                self.send_response("   Items here: ")
+                for item in room['items']:
+                    self.send_response(f"{item['name']}, ")
+                self.send_response("\r\n")
+
+                self.send_response("   Players here: ")
+                for player in self.json['entities']:
+                    if player["location"] == room['name']:
+                        self.send_response(f"{player["username"]},")
+                self.send_response("\r\n\n\r")
+                self.world.give()
+
+
+    def player_help(self):
+
+        pass
+
+
+    def player_move(self, direction):
+
+        pass
+
+
+    def player_inventory(self):
+
+        self.send_response("   Items: ")
+        for item in self.entity['items']:
+            self.send_response(f"{item['name']}, ")
+        self.send_response("\n\r\n\r")
+
+
+    def player_take(self):
+        pass
+
+
+    def logout(self):
+        self.entity['loggedin'] = False

@@ -6,12 +6,17 @@
 		  "location": "entry",
 		  "loggedin": false,
 		  "stats": {
+			  "base_hp": 100,
 			  "hp": 100,
 			  "level": 1,
 			  "xp": 0,
-			  "factor": 1.1
+			  "factor": 1.2,
+			  "next_lvl": 10
 		  },
-		  "items": []
+		  "items": [
+			{"name": "sword", "type": "weapon", "damage": 5, "time": 2}, 
+			{"name": "healing potion", "type": "potion", "hp": 10}			
+		  ]
 		}
 
 	],

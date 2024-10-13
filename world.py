@@ -1,4 +1,5 @@
 import json
+from threading import Lock
 
 class World:
 
@@ -12,12 +13,25 @@ class World:
 
         return cls._instance
 
+
     def load(self):
 
         with open('world.json') as json_data:
             self.env = json.load(json_data)
             json_data.close()
+            self.lock = Lock()
             print(self.env)
+
+
+    def take(self):
+
+        self.lock.acquire()
+
+
+    def give(self):
+
+        self.lock.release()
+
 
     def get(self):
 

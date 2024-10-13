@@ -29,6 +29,7 @@ def handle_client(client_socket, client_address):
             break
 
     # Client socket closed.
+    player.logout()
     client_socket.close()
     print(f"Connection closed with {client_address}")
 
@@ -60,4 +61,3 @@ def start_server(client):
 if __name__ == "__main__":
 
       start_server(handle_client)
-
